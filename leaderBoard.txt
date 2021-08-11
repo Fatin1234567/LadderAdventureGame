@@ -1,0 +1,9 @@
+Fatin,0,false
+Zhen,4,true
+Test,0,false
+Imon,3,true
+Enter named,0,true
+Enter name,0,false
+Enter name,0,false
+Enter name,0,false
+John,10,false
