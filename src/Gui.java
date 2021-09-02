@@ -10,39 +10,39 @@ import java.util.ArrayList;
 
 public class Gui
 {
-	JFrame window;          // contains 
-	Container con;
-	JPanel titleNamePanel, startButtonPanel, selectorPanel,errorShow,continuePanel,gameScreenPanel,gameScreenButtonsPanel,gameShowMovePanel,fightScreenButtonsPanel,fightScreenShowPanel,attributeButtonPanel,enterNamePanel,leaderBoardPanel,leaderBoardScreenPanel,backPanel;
-	JLabel titleNameLabel,playerHp,defenderHp;
-	Font titleFont = new Font("Normal",Font.PLAIN,70);
-	JButton startButton,continueButton,moveButton,fightButton,showAttributesButton,fightContinueButton,powerButton,backButton,powerUp,leaderBoardButton;
-	Font buttonFont = new Font("Normal",Font.PLAIN,40);
-	Font gameScreenSize = new Font("Normal",Font.PLAIN,20);
-	Font leaderScreen = new Font("Normal",Font.PLAIN,24);
-	Font popUPText = new Font("Normal",Font.PLAIN,20);
-	JComboBox characterSelection;
-	JTextArea gameScreen,displayMoveScreen,leaderBoardScreen;
-	JTextField name;
-	
-	
-	titleScreenHandler tsHandler = new titleScreenHandler();
-	titleScreenHandlerLeaderBoard tsLeaderBoardHandler = new titleScreenHandlerLeaderBoard();// here are the actio handler
-	leaderBoardBackHandler back = new leaderBoardBackHandler();
-	characterScreenHandlerContinue csContinueHandler = new characterScreenHandlerContinue();
-	
-	
-	gameHandlerAttributes gameAttributesHandler = new gameHandlerAttributes();
-	gameHandlerMove gameMoveHandler = new gameHandlerMove();
-	gameHandlerFight fightHandler = new gameHandlerFight();
-	
-	fightHandlerFight fightHandlerButton = new fightHandlerFight();
-	fightHandlerPower powerHandlerButton = new fightHandlerPower();
-	fightHandlerBack goBackGameScreen = new fightHandlerBack();
-	attributeHandlerBack goBack = new attributeHandlerBack();
-	attributeHandlerPower powerAction = new attributeHandlerPower();
-	
-	Game2 game;
-	DisplayBoard a;
+	private JFrame window;          // contains
+	private Container con;
+	private JPanel titleNamePanel, startButtonPanel, selectorPanel,errorShow,continuePanel,gameScreenPanel,gameScreenButtonsPanel,gameShowMovePanel,fightScreenButtonsPanel,fightScreenShowPanel,attributeButtonPanel,enterNamePanel,leaderBoardPanel,leaderBoardScreenPanel,backPanel;
+	private JLabel titleNameLabel,playerHp,defenderHp;
+	private Font titleFont = new Font("Normal",Font.PLAIN,70);
+	private JButton startButton,continueButton,moveButton,fightButton,showAttributesButton,fightContinueButton,powerButton,backButton,powerUp,leaderBoardButton,restart,quit;
+	private Font buttonFont = new Font("Normal",Font.PLAIN,40);
+	private Font gameScreenSize = new Font("Normal",Font.PLAIN,20);
+	private Font leaderScreen = new Font("Normal",Font.PLAIN,24);
+	private Font popUPText = new Font("Normal",Font.PLAIN,20);
+	private JComboBox characterSelection;
+	private JTextArea gameScreen,displayMoveScreen,leaderBoardScreen;
+	private JTextField name;
+
+
+	private titleScreenHandler tsHandler = new titleScreenHandler();
+	private titleScreenHandlerLeaderBoard tsLeaderBoardHandler = new titleScreenHandlerLeaderBoard();// here are the actio handler
+	private leaderBoardBackHandler back = new leaderBoardBackHandler();
+	private characterScreenHandlerContinue csContinueHandler = new characterScreenHandlerContinue();
+
+
+	private gameHandlerAttributes gameAttributesHandler = new gameHandlerAttributes();
+	private gameHandlerMove gameMoveHandler = new gameHandlerMove();
+	private gameHandlerFight fightHandler = new gameHandlerFight();
+
+	private fightHandlerFight fightHandlerButton = new fightHandlerFight();
+	private fightHandlerPower powerHandlerButton = new fightHandlerPower();
+	private fightHandlerBack goBackGameScreen = new fightHandlerBack();
+	private attributeHandlerBack goBack = new attributeHandlerBack();
+	private attributeHandlerPower powerAction = new attributeHandlerPower();
+
+	private Game2 game;
+	private DisplayBoard a;
 	private boolean exitFight;
 	private Character attacker;
 	private boolean finishedFightSession = false;
@@ -397,7 +397,24 @@ public class Gui
 			
 			if(!game.getPlayer().getAlive())
 				{
+					fightContinueButton.setVisible(false);
+					backButton.setVisible(false);
+					powerButton.setVisible(false);
 					total = total +"Game Over";
+					restart = new JButton("Restart");
+					restart.setBackground(Color.black);
+					restart.setForeground(Color.white);
+					restart.setFont(buttonFont);
+					restart.addActionListener(new restarts());
+					quit = new JButton("Exit");
+					quit.setBackground(Color.black);
+					quit.setForeground(Color.white);
+					quit.setFont(buttonFont);
+					quit.addActionListener(new restarts());
+					fightScreenButtonsPanel.add(restart);
+					fightScreenButtonsPanel.add(quit);
+
+
 					addData();
 				}
 			else if(!game.getDefender().getAlive())
@@ -608,6 +625,24 @@ public class Gui
 			else displayMoveScreen.setText("You havent defeated the defender");
 		}
 	}
+	class restarts implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if(e.getActionCommand().equals("Restart")){
+				window.dispose();
+				new Gui();
+			}else{
+				window.dispose();
+			}
+
+
+		}
+	}
+
+
+
 	
 	class attributeHandlerBack implements ActionListener
 	{
@@ -620,6 +655,7 @@ public class Gui
 			gameScreenButtonsPanel.setVisible(true);
 		}
 	}
+
 	
 	class attributeHandlerPower implements ActionListener
 	{
